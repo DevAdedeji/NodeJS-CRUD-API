@@ -1,7 +1,9 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose');
+const morgan = require("morgan")
 const app = express();
+const taskRoutes = require('./routes/taskRoutes')
 
 
 const dbURL = process.env.DATABASE_URL
@@ -16,3 +18,7 @@ mongoose.connect(dbURL)
 .catch(err=>{
     console.log(err)
 })
+
+app.use(morgan('dev'))
+app.use(express.json());
+app.use(taskRoutes);
